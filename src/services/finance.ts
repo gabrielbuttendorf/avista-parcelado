@@ -5,9 +5,26 @@ export interface FinanceInput {
   taxaAnual: number;
 }
 
+export interface LinhaAvista {
+  parcela: number;
+  saldoInicial: number;
+  rendimento: number;
+  saldoFinal: number;
+}
+
+export interface LinhaParcelado {
+  parcela: number;
+  saldoInicial: number;
+  pagamento: number;
+  rendimento: number;
+  saldoFinal: number;
+}
+
 export interface FinanceResult {
   valorFinalAvista: number;
   valorFinalParcelado: number;
+  tabelaAvista: LinhaAvista[];
+  tabelaParcelado: LinhaParcelado[];
 }
 
 export function simulateFinance({
@@ -20,33 +37,64 @@ export function simulateFinance({
 
   // --- Cenário A: investir desconto ---
   const desconto = parcelado - avista;
-  const valorBruto = desconto * Math.pow(1 + taxaMensalBruta, parcelas);
-  const rendimentoA = valorBruto - desconto;
-  const impostoA = rendimentoA * 0.225;
-  const valorFinalAvista = valorBruto - impostoA;
+  let saldoA = desconto;
+  let rendimentoTotalA = 0;
 
-  // --- Cenário B: investir tudo e sacar parcelas ---
-  let saldo = parcelado;
-  let rendimentoB = 0;
-  const valorParcela = parcelado / parcelas;
+  const tabelaAvista: LinhaAvista[] = [];
 
-  for(let i = 0; i < parcelas; i++) {
-    // saca parcela
-    saldo -= valorParcela;
-    
-    // rende
-    const rendimentoMes = saldo * taxaMensalBruta;
-    saldo += rendimentoMes
-    
-    // acumula lucro
-    rendimentoB += rendimentoMes
+  for (let parcela = 1; parcela <= parcelas; parcela++) {
+    const saldoInicial = saldoA;
+    const rendimento = saldoA * taxaMensalBruta;
+    saldoA += rendimento;
+    rendimentoTotalA += rendimento;
+
+    tabelaAvista.push({
+      parcela,
+      saldoInicial,
+      rendimento,
+      saldoFinal: saldoA,
+    });
   }
 
-  const impostoB = rendimentoB * 0.225;
-  const valorFinalParcelado = saldo - impostoB;
+  const impostoA = rendimentoTotalA * 0.225;
+  const valorFinalAvista = saldoA - impostoA;
+
+  // --- Cenário B: investir tudo e sacar parcelas ---
+  let saldoB = parcelado;
+  let rendimentoTotalB = 0;
+  const valorParcela = parcelado / parcelas;
+
+  const tabelaParcelado: LinhaParcelado[] = [];
+
+  for (let parcela = 1; parcela <= parcelas; parcela++) {
+    const saldoInicial = saldoB;
+
+    // saca parcela
+    saldoB -= valorParcela;
+
+    // rende
+    const rendimento = saldoB * taxaMensalBruta;
+    saldoB += rendimento;
+
+    // acumula lucro
+    rendimentoTotalB += rendimento;
+
+    tabelaParcelado.push({
+      parcela,
+      saldoInicial,
+      pagamento: valorParcela,
+      rendimento,
+      saldoFinal: saldoB,
+    })
+  }
+
+  const impostoB = rendimentoTotalB * 0.225;
+  const valorFinalParcelado = saldoB - impostoB;
 
   return {
     valorFinalAvista,
     valorFinalParcelado,
-  }
+    tabelaAvista,
+    tabelaParcelado,
+  };
 }

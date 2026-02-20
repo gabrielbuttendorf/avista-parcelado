@@ -1,10 +1,13 @@
+import { Header } from "./components/Header";
 import { Home } from "./components/Home";
+import { GlobalStyle } from "./styles/global";
 
 export function App() {
   return (
     <>
-        <h1>À Vista ou Parcelado?</h1>
-        <Home />
+      <GlobalStyle />
+      <Header />
+      <Home />
     </>
   );
 }
