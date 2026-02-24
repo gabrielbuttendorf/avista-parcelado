@@ -14,7 +14,8 @@ export const CalculateButton = styled.button`
 
   cursor: pointer;
 
-  &:hover {
+  &:hover,
+  &:focus {
     transition: background 0.3s;
     background: #4bcf6c;
     border-color: #4bcf6c;

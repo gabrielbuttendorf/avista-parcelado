@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { Form, InputDiv, Page } from "./styles";
+import { FormContainer, InputDiv, Page } from "./styles";
 import { Calculator } from "../Calculator";
 import { getSelic } from "../../services/selic";
+import type { simulateFinance } from "../../services/finance";
+import { ResultTable } from "../ResultTable";
 
 interface FinanceForm {
   avista: number;
@@ -9,9 +11,13 @@ interface FinanceForm {
   parcelas: number;
 }
 
-export function Home() {
+export function Form() {
   const [taxaAnual, setTaxaAnual] = useState<number>(0);
   const avistaRef = useRef<HTMLInputElement>(null);
+
+  const [result, setResult] = useState<ReturnType<
+    typeof simulateFinance
+  > | null>(null);
 
   useEffect(() => {
     getSelic().then(setTaxaAnual);
@@ -34,7 +40,7 @@ export function Home() {
 
   return (
     <Page>
-      <Form>
+      <FormContainer>
         <InputDiv>
           <span>Valor à vista</span>
 
@@ -77,12 +83,15 @@ export function Home() {
         <Calculator
           data={form}
           taxaAnual={taxaAnual}
+          onResult={setResult}
           onCalculate={() => {
             setForm({ avista: 0, parcelado: 0, parcelas: 0 });
             avistaRef.current?.focus();
           }}
         />
-      </Form>
+      </FormContainer>
+
+      <ResultTable result={result}/>
     </Page>
   );
 }

@@ -1,5 +1,5 @@
 import { Header } from "./components/Header";
-import { Home } from "./components/Home";
+import { Form } from "./components/Form";
 import { GlobalStyle } from "./styles/global";
 
 export function App() {
@@ -7,7 +7,7 @@ export function App() {
     <>
       <GlobalStyle />
       <Header />
-      <Home />
+      <Form />
     </>
   );
 }

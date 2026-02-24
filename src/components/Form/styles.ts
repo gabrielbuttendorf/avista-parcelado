@@ -4,9 +4,11 @@ export const Page = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: column;
 `;
 
-export const Form = styled.form`
+export const FormContainer = styled.form`
   width: 100%;
   max-width: 400px;
   padding: 1rem 2rem;
