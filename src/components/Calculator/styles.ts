@@ -8,7 +8,7 @@ export const CalculateButton = styled.button`
   background: transparent;
   border: 1px solid #426daf;
 
-  color: #fff;
+  color: #e2e8f0;
   font-size: 1rem;
   font-weight: 600;
 

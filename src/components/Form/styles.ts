@@ -47,13 +47,9 @@ export const InputDiv = styled.div`
     border: none;
     outline: none;
 
-    color: #fff;
+    color: #e2e8f0;
     font-size: 1rem;
     font-weight: 600;
-
-    &:focus {
-      /* outline: 1px solid #75f795; */
-    }
 
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {

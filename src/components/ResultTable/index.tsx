@@ -1,19 +1,37 @@
 import type { simulateFinance } from "../../services/finance";
+import { MainResult, ResultCard, TableContainer } from "./style";
 
 interface ResultTableProps {
   result: ReturnType<typeof simulateFinance> | null;
 }
 
-export function ResultTable({result}: ResultTableProps) {
+export function ResultTable({ result }: ResultTableProps) {
   return (
-    <>
+    <TableContainer>
       {result && (
         <>
-          <h2>Resultado Final</h2>
-          <p>À Vista: {result.valorFinalAvista}</p>
-          <p>Parcelado: {result.valorFinalParcelado}</p>
+          <MainResult>
+            <ResultCard variant="avista">
+              À Vista{" "}
+              <span>
+                {result.valorFinalAvista.toLocaleString("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                })}
+              </span>
+            </ResultCard>
+            <ResultCard variant="parcelado">
+              Parcelado{" "}
+              <span>
+                {result.valorFinalParcelado.toLocaleString("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                })}
+              </span>
+            </ResultCard>
+          </MainResult>
 
-          <h2>Tabela – À vista</h2>
+          <h2>Investir o Desconto</h2>
           <table>
             <thead>
               <tr>
@@ -27,15 +45,15 @@ export function ResultTable({result}: ResultTableProps) {
               {result.tabelaAvista.map((linha) => (
                 <tr key={linha.parcela}>
                   <td>{linha.parcela}</td>
-                  <td>{linha.saldoInicial.toFixed(2)}</td>
-                  <td>{linha.rendimento.toFixed(2)}</td>
-                  <td>{linha.saldoFinal.toFixed(2)}</td>
+                  <td>{linha.saldoInicial.toLocaleString("pt-BR", {style: 'currency', currency: 'BRL'})}</td>
+                  <td>{linha.rendimento.toLocaleString("pt-BR", {style: 'currency', currency: 'BRL'})}</td>
+                  <td>{linha.saldoFinal.toLocaleString("pt-BR", {style: 'currency', currency: 'BRL'})}</td>
                 </tr>
               ))}
             </tbody>
           </table>
 
-          <h2>Tabela – Parcelado</h2>
+          <h2>Investir e Sacar Parcelas</h2>
           <table>
             <thead>
               <tr>
@@ -50,16 +68,16 @@ export function ResultTable({result}: ResultTableProps) {
               {result.tabelaParcelado.map((linha) => (
                 <tr key={linha.parcela}>
                   <td>{linha.parcela}</td>
-                  <td>{linha.saldoInicial.toFixed(2)}</td>
-                  <td>{linha.pagamento.toFixed(2)}</td>
-                  <td>{linha.rendimento.toFixed(2)}</td>
-                  <td>{linha.saldoFinal.toFixed(2)}</td>
+                  <td>{linha.saldoInicial.toLocaleString("pt-BR", {style: 'currency', currency: 'BRL'})}</td>
+                  <td>{linha.pagamento.toLocaleString("pt-BR", {style: 'currency', currency: 'BRL'})}</td>
+                  <td>{linha.rendimento.toLocaleString("pt-BR", {style: 'currency', currency: 'BRL'})}</td>
+                  <td>{linha.saldoFinal.toLocaleString("pt-BR", {style: 'currency', currency: 'BRL'})}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </>
       )}
-    </>
+    </TableContainer>
   );
 }
