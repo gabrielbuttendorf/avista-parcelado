@@ -2,15 +2,16 @@ import styled from "styled-components";
 
 export const Page = styled.div`
   display: flex;
-  align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
   flex-direction: column;
+  padding: 0 1rem;
+
+  max-width: 720px;
+  margin: 0 auto;
 `;
 
 export const FormContainer = styled.form`
   width: 100%;
-  max-width: 400px;
   padding: 1rem 2rem;
   display: flex;
   flex-direction: column;
@@ -18,6 +19,11 @@ export const FormContainer = styled.form`
   background: #0a1e3d;
   border: 1px solid #214274;
   border-radius: 8px;
+  margin: 0 auto;
+
+  @media (max-width: 400px) {
+    padding: 1rem;
+  }
 `;
 
 export const InputDiv = styled.div`
@@ -38,8 +44,10 @@ export const InputDiv = styled.div`
   }
 
   input {
-    width: 150px;
+    flex: 1;
+    min-width: 0;
     text-align: right;
+
     height: 44px;
     padding: 0 0.75rem;
     border-radius: 8px;
