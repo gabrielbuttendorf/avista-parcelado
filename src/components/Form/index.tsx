@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type WheelEvent } from "react";
 import { FormContainer, InputDiv, Page } from "./styles";
 import { Calculator } from "../Calculator";
 import { getSelic } from "../../services/selic";
@@ -38,6 +38,10 @@ export function Form() {
     }));
   }
 
+  function disableScroll(e: WheelEvent<HTMLInputElement>) {
+    e.currentTarget.blur();
+  }
+
   return (
     <Page>
       <FormContainer>
@@ -52,6 +56,7 @@ export function Form() {
             id="avista"
             value={form.avista || ""}
             onChange={handleChange}
+            onWheel={disableScroll}
             placeholder="0,00"
           />
         </InputDiv>
@@ -64,6 +69,7 @@ export function Form() {
             id="parcelado"
             value={form.parcelado || ""}
             onChange={handleChange}
+            onWheel={disableScroll}
             placeholder="0,00"
           />
         </InputDiv>
@@ -76,6 +82,7 @@ export function Form() {
             id="parcelas"
             value={form.parcelas || ""}
             onChange={handleChange}
+            onWheel={disableScroll}
             placeholder="0"
           />
         </InputDiv>
@@ -91,7 +98,7 @@ export function Form() {
         />
       </FormContainer>
 
-      <ResultTable result={result}/>
+      <ResultTable result={result} />
     </Page>
   );
 }
