@@ -27,6 +27,12 @@ export interface FinanceResult {
   tabelaParcelado: LinhaParcelado[];
 }
 
+export interface FinanceForm {
+  avista: number;
+  parcelado: number;
+  parcelas: number;
+}
+
 export function simulateFinance({
   avista,
   parcelado,

@@ -2,18 +2,13 @@ import { useEffect, useRef, useState, type WheelEvent } from "react";
 import { FormContainer, InputDiv, Page } from "./styles";
 import { Calculator } from "../Calculator";
 import { getSelic } from "../../services/selic";
-import type { simulateFinance } from "../../services/finance";
+import type { FinanceForm, simulateFinance } from "../../services/finance";
 import { ResultTable } from "../ResultTable";
-
-interface FinanceForm {
-  avista: number;
-  parcelado: number;
-  parcelas: number;
-}
 
 export function Form() {
   const [taxaAnual, setTaxaAnual] = useState<number>(0);
   const avistaRef = useRef<HTMLInputElement>(null);
+  const [lastInputs, setLastInputs] = useState<FinanceForm | null>(null);
 
   const [result, setResult] = useState<ReturnType<
     typeof simulateFinance
@@ -91,6 +86,7 @@ export function Form() {
           data={form}
           taxaAnual={taxaAnual}
           onResult={setResult}
+          onSaveInputs={setLastInputs}
           onCalculate={() => {
             setForm({ avista: 0, parcelado: 0, parcelas: 0 });
             avistaRef.current?.focus();
@@ -98,7 +94,7 @@ export function Form() {
         />
       </FormContainer>
 
-      <ResultTable result={result} />
+      <ResultTable result={result} inputs={lastInputs} />
     </Page>
   );
 }

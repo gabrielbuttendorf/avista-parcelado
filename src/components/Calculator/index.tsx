@@ -13,6 +13,7 @@ interface CalculatorProps {
   taxaAnual: number;
   onCalculate: () => void;
   onResult: (result: ReturnType<typeof simulateFinance>) => void;
+  onSaveInputs: (data: FinanceForm) => void;
 }
 
 export function Calculator({
@@ -20,6 +21,7 @@ export function Calculator({
   taxaAnual,
   onCalculate,
   onResult,
+  onSaveInputs,
 }: CalculatorProps) {
   const handleCalculate = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -33,6 +35,7 @@ export function Calculator({
     });
 
     onResult(calculation);
+    onSaveInputs(data);
     onCalculate();
   };
 

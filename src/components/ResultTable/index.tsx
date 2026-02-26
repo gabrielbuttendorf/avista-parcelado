@@ -1,4 +1,4 @@
-import type { simulateFinance } from "../../services/finance";
+import type { FinanceForm, simulateFinance } from "../../services/finance";
 import {
   InfoContainer,
   MainResult,
@@ -11,17 +11,30 @@ import { InfoIcon } from "@phosphor-icons/react";
 
 interface ResultTableProps {
   result: ReturnType<typeof simulateFinance> | null;
+  inputs: FinanceForm | null;
 }
 
-export function ResultTable({ result }: ResultTableProps) {
+export function ResultTable({ result, inputs }: ResultTableProps) {
   return (
     <TableContainer>
       {result && (
         <>
           <UserInputs>
-            <p>Valor à vista:</p>
-            <p>Valor parcelado:</p>
-            <p>Parcelas:</p>
+            <p>
+              Valor à vista:{" "}
+              {inputs?.avista.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              })}
+            </p>
+            <p>
+              Valor parcelado:{" "}
+              {inputs?.parcelado.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              })}
+            </p>
+            <p>Parcelas: {inputs?.parcelas}</p>
           </UserInputs>
           <MainResult>
             <ResultCard variant="avista">
