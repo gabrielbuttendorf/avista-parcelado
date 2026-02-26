@@ -1,5 +1,13 @@
 import type { simulateFinance } from "../../services/finance";
-import { MainResult, ResultCard, TableContainer, TableWrapper } from "./style";
+import {
+  InfoContainer,
+  MainResult,
+  ResultCard,
+  TableContainer,
+  TableWrapper,
+  UserInputs,
+} from "./style";
+import { InfoIcon } from "@phosphor-icons/react";
 
 interface ResultTableProps {
   result: ReturnType<typeof simulateFinance> | null;
@@ -10,6 +18,11 @@ export function ResultTable({ result }: ResultTableProps) {
     <TableContainer>
       {result && (
         <>
+          <UserInputs>
+            <p>Valor à vista:</p>
+            <p>Valor parcelado:</p>
+            <p>Parcelas:</p>
+          </UserInputs>
           <MainResult>
             <ResultCard variant="avista">
               À Vista{" "}
@@ -30,6 +43,13 @@ export function ResultTable({ result }: ResultTableProps) {
               </span>
             </ResultCard>
           </MainResult>
+
+          <InfoContainer>
+            <InfoIcon size={18} />
+            <p>
+              Os valores acima já estão líquidos de impostos. (22,5% de IR){" "}
+            </p>
+          </InfoContainer>
 
           <h2>Investir o Desconto</h2>
           <TableWrapper>

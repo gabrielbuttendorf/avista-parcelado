@@ -1,5 +1,17 @@
 import styled from "styled-components";
 
+export const UserInputs = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+  gap: 0.125rem;
+
+  p {
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+`;
+
 export const MainResult = styled.div`
   display: flex;
   gap: 1rem;
@@ -54,6 +66,18 @@ export const ResultCard = styled.span<ResultCardProps>`
     display: block;
 
     background: linear-gradient(to right, transparent, #8697af, transparent);
+  }
+`;
+
+export const InfoContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+  gap: 0.125rem;
+
+  p {
+    font-size: 0.75rem;
+    color: #d2dae4;
   }
 `;
 
