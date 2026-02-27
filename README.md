@@ -1,73 +1,48 @@
-# React + TypeScript + Vite
+# 💰 À Vista ou Parcelado?
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação web que simula qual opção é financeiramente mais vantajosa: pagar à vista e investir o desconto ou parcelar e investir o valor total.  
+A simulação utiliza a taxa Selic atual, consumida diretamente da API oficial do Banco Central.
 
-Currently, two official plugins are available:
+## 🚀 Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🔎 Consumo da API do Banco Central para obter a Selic atual  
+📊 Simulação com juros compostos mês a mês  
+💰 Cálculo de IR fixo de 22,5% sobre o rendimento acumulado  
+📋 Geração dinâmica de tabelas detalhadas  
+📱 Layout totalmente responsivo  
+📈 Comparação entre dois cenários:  
+- Investir o desconto (à vista)  
+- Investir o valor total e sacar parcelas
 
-## React Compiler
+## 🧠 Regras de negócio implementadas
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+#### Cenário A — Investir o desconto
+- Calcula a diferença entre parcelado e à vista
+- Aplica juros compostos mensalmente
+- Aplica IR sobre o rendimento total
 
-## Expanding the ESLint configuration
+#### Cenário B — Investir e pagar parcelas
+- Investe o valor total
+- Desconta parcelas mensalmente
+- Aplica rendimento sobre saldo restante
+- Calcula IR apenas sobre os rendimentos acumulados
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠 Tecnologias
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- React  
+- TypeScript  
+- Styled Components  
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 📖 Conceitos aplicados
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Arquitetura baseada em separação de responsabilidades  
+- Services isolados para regra de negócio  
+- Tipagem com interfaces bem definidas  
+- Componentização reutilizável  
+- Controle de estado com React Hooks  
+- Mobile First  
+- Boas práticas de UX
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🌆 Imagens do projeto
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+<img src="./src/assets/img01.png" width="500">
